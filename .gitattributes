@@ -1,0 +1,4 @@
+site/index.html linguist-generated=true
+site/sw.js linguist-generated=true
+site/assets/*.js linguist-generated=true
+site/assets/*.css linguist-generated=true
