@@ -106,13 +106,15 @@
     .task-stack { display: grid; gap: 10px; }
     .task-card { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 13px 14px; border: 1px solid #dce5dd; border-radius: 8px; background: #fbfdfb; }
     .task-number { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 6px; background: #2d6a4f; color: #fff; font-weight: 900; }
-    .task-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .task-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .task-card-title { display: flex; min-width: 0; flex-wrap: wrap; align-items: baseline; gap: 6px 8px; }
     .task-card-head strong { font-size: 16px; }
-    .task-card-head span { color: #69726d; font-size: 13px; font-weight: 800; white-space: nowrap; }
+    .task-material { display: inline-flex; align-items: center; min-height: 20px; padding: 2px 7px; border: 1px solid #cfe0d5; border-radius: 999px; background: #eef6f1; color: #2d6a4f; font-size: 11px; font-weight: 800; line-height: 1.35; white-space: nowrap; }
+    .task-duration { color: #69726d; font-size: 13px; font-weight: 800; white-space: nowrap; }
     .task-details { display: grid; gap: 6px; margin-top: 8px; }
     .task-details p { margin: 0; color: #4f5b55; line-height: 1.65; }
     @media (max-width: 780px) { .report-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .report-chart-grid { grid-template-columns: 1fr; } .report-hero-main { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) { .day-header, .task-card-head, .report-review-head, .report-toolbar, .report-section-head { display: grid; } .report-print-button { justify-self: start; } .task-card { grid-template-columns: 1fr; } .task-number { width: auto; justify-self: start; padding: 0 10px; } .report-overview-grid, .report-issue-summary, .report-issue-item { grid-template-columns: 1fr; } .report-bar-row { grid-template-columns: 46px minmax(0, 1fr) 58px; } }
+    @media (max-width: 640px) { .day-header, .report-review-head, .report-toolbar, .report-section-head { display: grid; } .report-print-button { justify-self: start; } .task-card { grid-template-columns: 1fr; } .task-number { width: auto; justify-self: start; padding: 0 10px; } .report-overview-grid, .report-issue-summary, .report-issue-item { grid-template-columns: 1fr; } .report-bar-row { grid-template-columns: 46px minmax(0, 1fr) 58px; } }
     @media print { * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } body { background: #fff; } main { max-width: none; padding: 0; } .report-toolbar { display: none; } .card, .report-hero, .report-score-card, .report-chart-card, .report-review-card, .report-issue-item, .day-section, .task-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; } }
   </style>
 </head>
@@ -231,8 +233,11 @@
             <div class="task-number">${ge+1}</div>
             <div>
               <div class="task-card-head">
-                <strong>${Z(ce.title)}</strong>
-                <span>${ce.minutes} 分钟${ce.quantity?` · ${Z(ce.quantity)}`:""}</span>
+                <div class="task-card-title">
+                  <strong>${Z(ce.title)}</strong>
+                  ${ce.quantity?`<span class="task-material">${Z(ce.quantity)}</span>`:""}
+                </div>
+                <span class="task-duration">${ce.minutes} 分钟</span>
               </div>
               <div class="task-details">${we}</div>
             </div>
@@ -537,9 +542,11 @@
         <label class="task-item ${I?"is-readonly":""}">
           <input type="checkbox" data-task-id="${a.escapeHtml(se.id)}" ${Ee} ${le}>
           <span class="task-title">
-            <strong>${a.escapeHtml(se.title)}</strong>
+            <span class="task-heading">
+              <strong>${a.escapeHtml(se.title)}</strong>
+              ${ye?`<span class="task-resource">${a.escapeHtml(ye)}</span>`:""}
+            </span>
             <span class="task-detail-lines">${me}</span>
-            ${ye?`<span class="task-resource">${a.escapeHtml(ye)}</span>`:""}
           </span>
           <span class="task-meta">${se.minutes} 分钟</span>
         </label>
