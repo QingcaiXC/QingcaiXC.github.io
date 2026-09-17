@@ -113,8 +113,9 @@
     .task-duration { color: #69726d; font-size: 13px; font-weight: 800; white-space: nowrap; }
     .task-details { display: grid; gap: 5px; margin-top: 8px; }
     .task-details p { margin: 0; color: #69726d; font-size: 12px; font-weight: 400; line-height: 1.65; }
-    .task-details.is-list p { position: relative; padding-left: 12px; }
-    .task-details.is-list p::before { position: absolute; top: 0; left: 1px; content: "•"; color: #2d6a4f; }
+    .task-details.is-list { counter-reset: task-detail; }
+    .task-details.is-list p { position: relative; padding-left: 20px; counter-increment: task-detail; }
+    .task-details.is-list p::before { position: absolute; top: 0; left: 0; width: 15px; content: counter(task-detail) "."; color: #2d6a4f; font-size: 11px; text-align: right; }
     @media (max-width: 780px) { .report-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .report-chart-grid { grid-template-columns: 1fr; } .report-hero-main { grid-template-columns: 1fr; } }
     @media (max-width: 640px) { .day-header, .report-review-head, .report-toolbar, .report-section-head { display: grid; } .report-print-button { justify-self: start; } .task-card { grid-template-columns: 1fr; } .task-number { width: auto; justify-self: start; padding: 0 10px; } .report-overview-grid, .report-issue-summary, .report-issue-item { grid-template-columns: 1fr; } .report-bar-row { grid-template-columns: 46px minmax(0, 1fr) 58px; } }
     @media print { * { -webkit-print-color-adjust: exact; print-color-adjust: exact; } body { background: #fff; } main { max-width: none; padding: 0; } .report-toolbar { display: none; } .card, .report-hero, .report-score-card, .report-chart-card, .report-review-card, .report-issue-item, .day-section, .task-card { break-inside: avoid; page-break-inside: avoid; box-shadow: none; } }
